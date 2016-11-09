@@ -1,0 +1,17 @@
+{
+  "ecmaVersion": 5,
+  "libs": [
+    "browser",
+    "underscore"
+  ],
+  "dontLoad": [
+    "node_modules/"
+  ],
+  "plugins": {
+    "node": {
+      "dontLoad": "",
+      "load": "",
+      "modules": ""
+    }
+  }
+}

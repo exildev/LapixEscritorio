@@ -1,0 +1,69 @@
+//-------
+%clear{
+    margin: 0;
+    padding: 0;
+}//end-%clear
+@mixin clear{
+    @extend %clear;
+}//end-mixin
+
+@mixin setfont($id){
+    @if variable-exists(FONTS) and length($FONTS) >= $id and nth($FONTS,$id) != null{
+        $str: nth($FONTS,$id);
+        @if $str{
+            @extend %#{$str} !optional;
+        }//end-if
+    }@else{
+        font-family: sans-serif;
+    }//end-if
+}//end-mixin
+@mixin wf(){
+    @if variable-exists(wf){
+        @include setfont($wf);
+    }//end-if
+}//end-mixin
+//-------
+
+@mixin single($f, $s:null){
+    @if $s{
+        $f: simple_char_replace($f,('(',')',' ','%','.','!','+'));
+        $f: "#{$f}fn";
+        @if not map_has_key($instance, $f){
+            @at-root{
+                %#{$f}{
+                    @content;
+                }//end-%#{$f}
+            }//end-at-root
+            $instance: map_merge($instance,($f : "1"))!global;
+        }//end-if
+        @extend %#{$f};
+    }@else{
+        @content;
+    }//end-if
+}//end-mixin
+
+//----------
+@mixin singleton($f, $s:null){
+    @if $s{
+        $f: simple_char_replace($f,('(',')',' ','%','.','!','+'));
+        $f: "#{$f}fn";
+        @if not map_has_key($instance, $f){
+            @at-root{
+                %#{$f}{
+                    @content;
+                }//end-%#{$f}
+            }//end-at-root
+            $instance: map_merge($instance,($f : "1"))!global;
+        }//end-if
+        @extend %#{$f};
+    }@else{
+        @content;
+    }//end-if
+}//end-mixin
+//-----------
+@mixin marca($color: blue){
+    background: rgba($color, .4);
+    outline: border-solid($color);
+}//end-mixin
+
+//--------------------

@@ -1,0 +1,251 @@
+@import "simple";
+
+
+@mixin active-gradient-radial{
+    //background: -webkit-radial-gradient(black, gray,  white); 
+    //background: -o-radial-gradient(black, gray,  white);
+    //background: -moz-radial-gradient(black, gray,  white); 
+    background: radial-gradient(black, gray,  white);
+}
+//end-mixin
+
+
+@mixin selection{
+    ::selection {@content;}
+    ::-moz-selection {@content}
+}
+//end-mixin
+
+@mixin focus($color){
+    input, select{
+        &:focus{
+            outline: border_solid($color);
+        }//end-
+    }//end-input, select
+}//end-mixin
+
+@mixin rule($v){
+    @if $v{
+        top: map-get($v,t);
+        bottom: map-get($v,b);
+        left: map-get($v,l);
+        right: map-get($v,r);
+    }//end-if
+}//end-mixin
+
+@mixin pos($v:null, $s:null){
+    @include singleton("pos#{map_to_string($v)}", $s){
+        position: absolute;
+        @include rule($v);
+    }//end-singleton
+}//end-mixin
+
+@mixin fix($v:null, $s:null){
+    @include singleton("fix#{map_to_string($v)}", $s){
+        position: fixed;
+        @include rule($v);
+    }//end-
+}//end-mixin
+
+@mixin rel($v:null, $s:null){
+    @include singleton("rel#{map_to_string($v)}", $s){
+        position: relative;
+        @include rule($v);
+    }//end-singleton
+}//end-mixin
+
+@mixin gradient-radial($innerColor: #555, $outerColor: #333 , $s:null)  {
+    @include singleton("gradradint#{$innerColor}out#{$outerColor}", $s){
+        background-color: $outerColor;
+        background-image: -webkit-gradient(radial, center center, 0, center center, 460, from($innerColor), to($outerColor));
+        background-image: -webkit-radial-gradient(center, circle, $innerColor, $outerColor);
+        background-image: -moz-radial-gradient(center, circle, $innerColor, $outerColor);
+        background-image: -o-radial-gradient(center, circle, $innerColor, $outerColor);
+        background-repeat: no-repeat;
+    }//end-singleton
+}//end-mixin
+
+@mixin div_size($w, $h: null, $s:null){
+    @include singleton("ds#{$w}#{$h}", $s){
+        width: $w;
+        height: $h;
+    }//end-singleton
+}//end-mixin
+
+@mixin alr($c1, $c2){
+    border: border_solid($c1);
+    background-color: $c2;
+    color: $c1;
+}//end-mixin
+
+@mixin button($text-color, $bg-color, $ev-color, $ev-text:$text-color, $shadow: null) {
+    @include color-button($text-color, $bg-color, $shadow);
+    &:hover, &:focus { 
+        background: $ev-color $ipt;
+        color: $ev-text $ipt;
+        outline: none;
+    }//end-&:hover, &:focus 
+}//end-mixin
+
+@mixin color-button($text-color, $bg-color, $shadow) {
+    color: $text-color;
+    border: none;
+    background: $bg-color;
+    @if $shadow{
+        box-shadow: 2px 2px 2px $shadow;  
+    }//end-if
+}//end-mixin
+
+@mixin shadow($value, $s:null){
+    @include singleton("shadow#{array_to_string($value)}", $s){
+        -moz-box-shadow:    $value;
+        -webkit-box-shadow: $value;
+        box-shadow:         $value;
+    }//end-singleton
+}//end-mixin
+
+@mixin transform($value, $s:null){
+    @include singleton("transform#{array_to_string($value)}", $s){
+        -webkit-transform:$value; 
+        -moz-transform:$value; 
+        -o-transform:$value;
+        transform: $value;
+    }//end-singleton
+}//end-mixin
+
+
+@mixin transition($value, $s:null) {
+    @include singleton("transition#{array_to_string($value)}", $s){
+        -webkit-transition: $value;
+        -moz-transition: $value;
+        -ms-transition: $value;
+        transition: $value;
+        @if  variable-exists(timef){
+            -webkit-transition-timing-function: $timef;
+            -moz-transition-timing-function: $timef;
+            -ms-transition-timing-function: $timef;
+            transition-timing-function: $timef;
+        }
+    }//end-singleton
+}//end-mixin
+
+@mixin animation($value, $s:null) {
+    @include singleton("animation#{array_to_string($value)}", $s){
+        -webkit-animation: $value;
+        -moz-animation: $value;
+        -ms-animation: $value;
+        animation: $value;
+    }//end-singleton
+}//end-mixin
+
+@mixin margin($x:0, $v:null, $s:null){
+    @include singleton("margin#{array_to_string($x)}#{map_to_string($v)}", $s){
+        @include rule4(margin,$x,$v);
+    }//end-singleton
+}//end-mixin
+@mixin padding($x:0, $v:null, $s:null){
+    @include singleton("padding#{array_to_string($x)}#{map_to_string($v)}", $s){
+        @include rule4(padding,$x,$v);
+    }//end-singleton
+}//end-mixin
+
+@mixin border($x:none, $v:null, $s:null){
+    @include singleton("border#{array_to_string($x)}#{map_to_string($v)}", $s){
+        $x: if(($v) and $x == none, null, $x);
+        @include rule4(border,$x,$v);
+    }//end-singleton
+}//end-mixin
+
+@mixin rule4($rule,$x,$v){
+    #{$rule}: $x {
+        @include rule($v);
+    }//end-#{$rule}: $x 
+}//end-mixin
+
+
+@mixin icon_matriz($url,$x,$y,$iw,$ih:$iw,$class:icon){
+    [class^=#{$class}]{
+        width: $iw;
+        height: $ih;
+        background-image: url(#{$url});
+    }//end-[class^=#{$class}]
+    @for $i from 0 to $x {
+        @for $j from 0 to $y{
+            .#{$class}#{$i}#{$j}{    
+                background-position: (-1*$i*$iw) (-1*$j*$ih);
+            }//end-.#{$class}#{$i}#{$j}
+        }//end-for
+    }//end-for
+}//end-mixin
+
+@mixin fonts($folder,$foms){
+    @if  variable-exists(FONTS){  
+        @each $fon in $FONTS{
+            @if $fon{
+                $aux: null;
+                @if variable-exists(font_version){
+                    @if $font_version{
+                        $aux: nth($font_version,index($FONTS,$fon));
+                    }//end-if
+                }//end-if
+                @font-face{
+                    font-family: '#{$fon}';
+                    $aux: if($aux,'?#{$aux}',null);
+                    src: url('#{$folder}#{$fon}.eot#{$aux}');
+                    $coma: ', ';
+                    $num:'#';
+                    $array: null;         
+                    @each $fom in $foms{
+                        $format:'';
+                        @if $fom == eot{
+                            $format: format('embedded-opentype');
+                            $aux: if($aux,'&#{$aux}',null);
+                            $fom: 'eot?#iefix#{$aux}';
+                        }//end-if
+                        @if $fom == woff{
+                            $format: format('woff');
+                            $aux: if($aux,'?#{$aux}',null);
+                            $fom: '#{$fom}#{$aux}';
+                        }//end-if
+                        @if $fom == ttf{
+                            $format: format('truetype');
+                            $aux: if($aux,'?#{$aux}',null);
+                            $fom: '#{$fom}#{$aux}';
+                        }//end-if
+                        @if $fom == svg{
+                            $format: format('svg');
+                            $aux: if($aux,'?#{$aux}',null);
+                            @if variable-exists(svgids){
+                                $fom: svg#{$aux}#{$num}#{nth($svgids,index($FONTS,$fon))};
+                            } @else {
+                                @warn "No se encontraron SVG IDs en las variables"
+                            }//end-else   
+                        }//end-if
+                        $array: if($array != null, #{$array}#{$coma} , null) url('#{$folder}#{$fon}.#{$fom}') #{$format};
+                    }//end-each
+                    src: $array;
+                    font-weight: normal;
+                    font-style: normal;
+                    font-size: 16px;
+                }//end-font-face
+                %#{$fon}{
+                    font-family: '#{$fon}';
+                    font-size: 100%;
+                }//end-%#{$fon}
+            }//end-if   
+        }//end-each
+    }//end-if
+}//end-mixin
+
+@mixin md($ws,$mx:min){    
+    @media screen and (#{$mx}-width: #{$ws}){
+        @content;
+    }//end-media
+}//end-
+
+@mixin keyframes($name) {
+    @-webkit-keyframes #{$name} {@content;}//end--webkit-keyframes
+    @-moz-keyframes #{$name} {@content;}//end--moz-keyframes
+    @-ms-keyframes #{$name} {@content;}//end--ms-keyframes
+    @keyframes #{$name} {@content;}//end-keyframes 
+}//end-mixin

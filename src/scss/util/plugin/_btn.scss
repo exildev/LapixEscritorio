@@ -1,0 +1,34 @@
+#{map-get($btn,'datatable')} a.button, a.btn, button, [type="submit"], input[type="reset"], input[type="button"] {
+    margin: 8px;
+    padding: 7px;
+    font-size: 16px;
+    text-align: center;
+    @include setfont(map-get($btn,'font'));
+    text-decoration: none;
+    display: inline-block;
+    $def: map-get($btn, 'defauld');
+    @include button(
+        nth($def,1),
+        nth($def,2),
+        darken(nth($def,2),10%),
+        nth($def,1),
+        if(map-get($btn,'shadow'),darken(nth($def,2),20%), null)
+    );
+    @each $key, $val in map-get($btn,'buttons'){
+        $pt: '.';
+        &#{$pt}#{$key}{
+            @include button(
+                nth($val,1),
+                nth($val,2),
+                darken(nth($val,2),1%),
+                nth($val,1),
+                if(map-get($btn,'shadow'),darken(nth($val,2),20%), null)
+            );
+        }//end-&#{$pt}#{$key}
+    }//end-each
+    &.small{
+        padding: 10px 30px;
+        font-size: 12px;
+        width: auto;
+    }//end-&.small
+}//end-#{map-get($btn,'datatable')} a.button, a.btn, button, [type="submit"], input[type="reset"], input[type="button"] 

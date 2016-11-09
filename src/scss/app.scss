@@ -1,0 +1,23 @@
+// @import "util/core";
+// @import "util/plugin/reset";
+// @import "util/plugin/flex";
+
+* {
+    -webkit-user-select: none;
+    -webkit-user-drag: none;
+}
+%wh{
+    width: 100%;
+    height: 100%;
+}
+body,
+html {
+    @extend %wh;
+    font-family: $font_lucida;
+}
+
+body {
+    > div {
+        @extend %wh;
+    }
+}

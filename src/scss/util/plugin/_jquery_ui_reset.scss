@@ -1,0 +1,26 @@
+.ui-corner-all,
+.ui-corner-bottom,
+.ui-corner-right,
+.ui-corner-left,
+.ui-corner-top,
+.ui-corner-br,
+.ui-corner-bl,
+.ui-corner-tr,
+.ui-corner-tl{
+    border-radius: 0 $ipt;
+}//end-.ui-corner-all,.ui-corner-bottom,.ui-corner-right,.ui-corner-left,.ui-corner-top,.ui-corner-br,.ui-corner-bl,.ui-corner-tr,.ui-corner-tl
+.ui-dialog{
+    @include padding(0 $ipt);
+}//end-ui-dialog
+
+/*.ui-dialog .ui-dialog-content{
+    @include padding(0 $ipt);
+}//end-.ui-dialog .ui-dialog-content*/
+
+.ui-datepicker{
+    z-index: 200 $ipt;
+}//end-.ui-datepicker
+
+.ui-widget{
+    @include setfont(2)
+}//end-.ui-widget

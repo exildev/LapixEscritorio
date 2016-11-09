@@ -1,0 +1,106 @@
+table.dataTable{
+    @include setfont(1);
+    border-spacing: 2px;
+    border: none;    
+    thead, tfoot{
+        th{
+            font-weight: normal;
+            background: $th1;
+            color: white;
+            &:nth-child(2n+2){
+                background: $th2;
+            }//end-&:nth-child(2n+2)
+        }//end-th
+    }//end-thead, tfoot
+    tbody{
+        tr{
+            text-align: center;
+            th{
+                font-weight: normal;
+                background: $th2;
+                color: white;
+            }//end-th
+            td{
+                color: #444;
+                background: $td11;
+                &:nth-child(2n){
+                   background: $td12; 
+                }//&:nth-child(2n-1)
+            }//end-td
+            
+            &:nth-child(2n-1) td{
+                background: $td21;
+                &:nth-child(2n){
+                   background: $td22; 
+                }//:nth-child(2n-1)
+            }//end-&:nth-child(2n-1) td
+        }//end-tr
+    }//end-tbody
+    th,td{
+        padding: 6px;
+        border: 1px solid #eee;
+    }//end-th,td
+}//end-table
+
+@if $datatable {
+    .dataTables_wrapper{
+        margin: 7px;
+        //padding: 4px;
+        //background: darken($tc1,15%);
+        //border-radius: 3px;
+        border: 2px solid $tc4;
+        .dataTables_filter , .dataTables_info{
+            display: none;
+        }//end-.dataTables_filter , .dataTables_info
+        .dataTables_length{
+            @include setfont(1);
+            width: 100%;
+            background: $tc4;
+            color: $tc3;
+            label{
+                padding-left: 15px;
+            }//end-label
+        }//end-.dataTables_length
+        .dataTables_paginate{
+            @include setfont(3);
+            text-align: right;
+        }//end-.dataTables_paginate
+        //.dataTables_length, .dataTables_filter, 
+        .dataTables_paginate, .dataTables_info {
+            display: inline-block;
+            width: 49%;
+        }//end-.dataTables_paginate, .dataTables_info
+        .dataTable{
+            width: 100%;
+            a{
+                &.t-i{
+                    text-decoration: none;
+                    font-size: 22px;
+                    color: $tc2;
+                    text-shadow: 1px 1px 3px darken($tc3, 20%);
+                    @include transition(.3s all);
+                    &-n{
+                        color: #777;
+                        text-shadow: none;
+                        &.orange{
+                            color: darken($tc4, 30%);
+                        }//end-&.orange
+                    }//end-&-n
+                    &:hover{
+                        color: white;
+                    }//end-&:hover
+                    &:active{
+                        font-size: 20px;
+                    }//end-&:active
+                }//end-&.t-i
+            }//end-a
+        }//end-.dataTable
+    }//end-.dataTables_wrapper
+    .t-i, .t-i-n, .next, .previous, .last, .first, i{
+        font-style: normal;
+        @include setfont($wf);
+    }//end-.t-i, .t-i-n, .next, .previous, .last, .first
+    .next, .previous, .last, .first{
+        font-size: 18px !important;
+    }//end-.next, .previous, .last, .first
+}//end-if

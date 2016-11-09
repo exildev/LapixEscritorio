@@ -1,0 +1,62 @@
+//Autor: Cristian Trujillo
+//Emmet html code: input[type="checkbox"]#toggle+(ul>li*10(input[type="checkbox"]#it$+label[for="it$"]{Folder $}+ul>li*10>a[href="#"]{Item $}))
+//el input[type="checkbox"] se puede cambiar por input[type="radio"]  si se agrega un name unico para todos los input[type="radio"]
+//$SIDE_BAR:(
+//    side: #content-sidebar, //selector para en contenedor del sidebar
+//    content: #content-main, //selector para el contenedor adyacente al sidebar
+//    toggle: #toggle, //selector para input[type="checkbox"] que llebara la funcion de ocultar sidebar
+//    min-width: 0px
+//);
+
+@mixin toggle_content($input,$content,$not:false){
+    #{$input}{
+        @if $not {
+            &:not(:checked){
+                &~ #{$content}{
+                    @content;        
+                }   
+            }
+        }@else{
+            &:checked{
+                &~ #{$content}{
+                    @content;        
+                }   
+            }
+        }
+        
+    }
+}
+#{map_get($SIDE_BAR,'toggle')}{
+    display: none;
+}
+#{map_get($SIDE_BAR,'sidebar-ul')}{
+    input[type="checkbox"], input[type="radio"]{
+        display: none;
+    }
+}
+
+@include toggle_content(map_get($SIDE_BAR,'toggle'), map_get($SIDE_BAR,'side')){ 
+    left: 0px;
+    #{map_get($SIDE_BAR,'sidebar-ul')}{
+        left: 0px;
+    }
+}
+
+@include toggle_content(map_get($SIDE_BAR,'toggle'), map_get($SIDE_BAR,'side'), true){ 
+    left: #{(map_get($SIDE_BAR,'max-width') - map_get($SIDE_BAR,'min-width')) * -1};
+    #{map_get($SIDE_BAR,'sidebar-ul')}{
+        left: #{(map_get($SIDE_BAR,'max-width') - map_get($SIDE_BAR,'min-width')) * -1};
+    }
+}
+
+@include toggle_content('#{map_get($SIDE_BAR,'sidebar-ul')} li input[type="checkbox"], #{map_get($SIDE_BAR,'sidebar-ul')} li input[type="radio"]', 'ul', true){
+    display: none;
+}
+
+@include toggle_content(map_get($SIDE_BAR,'toggle'), map_get($SIDE_BAR,'content')){
+    @include div_size(calc(100% - #{map_get($SIDE_BAR,'max-width')}));
+}
+
+@include toggle_content(map_get($SIDE_BAR,'toggle'), map_get($SIDE_BAR,'content'), true){
+    @include div_size(calc(100% - #{map_get($SIDE_BAR,'min-width')}));
+}

@@ -1,0 +1,177 @@
+#mbar{
+    display: none;
+    &:checked{ 
+        &~ aside{
+            @include div_size(59px);
+            #head{ 
+                @include div_size(59px);
+                label{
+                    text-align: center;
+                    span:not(.t-i){
+                        display: none;
+                    }//end-span:not(.t-i)
+                }//end-label
+            }//end-#head
+            #body {
+                @include div_size(60px);
+                ul{
+                    @include div_size(60px);
+                    li{
+                        @include div_size(60px);
+                        label{
+
+                            @include rel;
+                            @include margin($v:(l:-163px));
+                            span{
+                                opacity: 0;
+                               
+                            }//end-span
+                        }//end-label
+                    }//end-li
+                }//end-ul
+            }//end-#body
+        }//end-&~ aside
+        &~ #main{
+            @include fix((t:0,r:0,l:61px,b:0));
+            @include  div_size(calc(100% - 61px));
+            header{
+                @include fix((t:0,l:62px));
+                @include  div_size(calc(100% - 60px));
+            }//end-header
+            #content{
+                @include div_size(calc(100% - 70px));
+                @include fix((t:105px,r:5px,l:65px,b:85px));
+            }//end-#content
+        }//end-&~ #main
+    }//end-&:checked
+}//end-#mbar
+
+aside{
+    @include fix((t:0, b:85px));
+    @include div_size(221px);
+    @include  transition(.7s all);
+    @include md($t2, max){
+        width: 100%;
+    }//end-include
+    background: $menu1;
+    border: border_solid(black);
+    border-top: none;
+    color: white;
+    #head{
+        @include setfont(1);
+        text-shadow: 0 1px 5px $menu3;
+        color: white;
+        @include div_size(221px,100px);
+        @include  transition(.7s all);
+        @include md($t2, max){
+            width: 100%;
+        }//end-include
+        label{
+            display: table;
+            background: $menu1;
+            @include clear;  
+            @include div_size(100%,100%);
+            div{
+                display: table-cell;
+                vertical-align: middle;
+                //@include div_size(100%,100%);
+                text-align: center; 
+                span.t-i{
+                    font-size: 32px
+                }//end-span.t-i
+            }//end-div
+        }//end-label
+    }//end-#head
+    #body{
+        @include div_size(221px);
+        @include fix((t:100px,b:85px));
+        @include  transition(.7s all);
+        @include md($t2, max){
+            width: 100%;
+        }//end-include
+        label{
+            display: block;
+            background: $menu4;
+            min-height: 18px;
+            @include padding(8px);
+            border-bottom: 2px solid $menu3;
+            text-align: left;
+            @include div_size(182px);
+            @include  transition(.7s all);
+            span{
+                opacity: 1;
+                text-shadow: 0 0 2px;
+                @include  transition(1s all 1s);
+            }//end-span
+            img{
+                position: relative;
+                float: right;
+                border: none;
+                @include margin($v:(t:-8px,r:-8px));
+                @include div_size(36px,36px);
+            }//end-img
+        }//end-label
+        overflow: auto;
+        overflow-x: hidden;
+        ul{
+            @include clear;
+            @include div_size(200px);
+            font-size: small;
+            @include md($t2, max){
+                width: calc(100% - 21px);
+            }//end-include
+            ul{
+                @include div_size(100%);
+                li{
+                    border-bottom: border_solid(rgba($esquina, .1));
+                    label{
+                        &::after{
+                            content: '\f105';
+                            float: right;
+                        }//end-&::after
+                    }//end-label
+                }//end-li
+            }//end-ul
+            list-style: none;
+            li{
+                @include div_size(200px);
+                @include  transition(.7s all);
+                label{
+                    &::after{
+                        content: '\f078';
+                        float: right;
+                    }//end-&::after
+                }//end-label
+                @include md($t2, max){
+                    width: 100%;
+                }//end-include
+                [type="checkbox"], [type="radio"]{
+                    display: none;
+                    &:not(:checked){ 
+                        &~ ul{
+                            display: none;
+                        }//end-&~ ul
+                        &~ label{
+                            background: $menu4;
+                            &::after{
+                                content: '\f054';
+                                float: right;
+                            }//end-&::after
+                        }//end-&~ label
+                    }//end-&:not(:checked)
+                }//end-[type="checkbox"], [type="radio"]
+                a{
+                    text-decoration: none;
+                    color: white;
+                    label{
+                        background: $menu2;
+                        border: none;
+                        &:hover{
+                            background: $menu3;
+                        }//end-&:hover
+                    }//end-label    
+                }//end-a
+            }//end-li
+        }//end-ul
+    }//end-#body
+}//end-aside

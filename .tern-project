@@ -4,11 +4,13 @@
     "browser",
     "underscore"
   ],
-  "dontLoad": [
-    "node_modules/"
-  ],
   "plugins": {
     "node": {
+      "dontLoad": "",
+      "load": "",
+      "modules": ""
+    },
+    "modules": {
       "dontLoad": "",
       "load": "",
       "modules": ""

@@ -1,26 +1,29 @@
 {
-    "name": "Lapix-Escritorio",
-    "version": "0.1.0",
-    "main": "main.js",
-    "scripts": {
-        "start": "electron ."
-    },
-    "devDependencies": {
-        "devtron": "^1.4.0",
-        "electron": "^1.4.5",
-        "electron-packager": "^8.2.0",
-        "electron-prebuilt": "^1.4.5",
-        "del": "^2.2.2",
-        "gulp": "^3.9.1",
-        "gulp-concat": "^2.6.0",
-        "gulp-sass": "^2.3.2",
-        "gulp-sourcemaps": "^2.2.0",
-        "gulp-uglify": "^2.0.0"
-    },
-    "keywords": [
-        "Lapix"
-    ],
-    "author": "Exile autors",
-    "license": "MIT",
-    "description": "Education plataform"
+  "name": "lapix-escritorio",
+  "version": "0.0.1",
+  "description": "Edication Plataform",
+  "main": "./desktop/main.js",
+  "dependencies": {},
+  "devDependencies": {
+    "devtron": "^1.4.0",
+    "electron": "^1.4.7"
+  },
+  "scripts": {
+    "start": "electron .",
+    "test": "polymer test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/exildev/LapixEscritorio.git"
+  },
+  "keywords": [
+    "education",
+    "lapix"
+  ],
+  "author": "Exile autors",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/exildev/LapixEscritorio/issues"
+  },
+  "homepage": "https://github.com/exildev/LapixEscritorio#readme"
 }

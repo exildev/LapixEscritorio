@@ -1,0 +1,195 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/app-route/app-location.html">
+<link rel="import" href="../../bower_components/app-route/app-route.html">
+<link rel="import" href="../../bower_components/app-layout/app-drawer-layout/app-drawer-layout.html">
+<link rel="import" href="../../bower_components/app-layout/app-drawer/app-drawer.html">
+<link rel="import" href="../../bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
+<link rel="import" href="../../bower_components/app-layout/app-header/app-header.html">
+<link rel="import" href="../../bower_components/app-layout/app-header-layout/app-header-layout.html">
+<link rel="import" href="../../bower_components/paper-toolbar/paper-toolbar.html">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../../bower_components/iron-selector/iron-selector.html">
+<link rel="import" href="../../bower_components/paper-menu/paper-menu.html">
+<link rel="import" href="../../bower_components/paper-menu/paper-submenu.html">
+<link rel="import" href="../../bower_components/paper-item/paper-icon-item.html">
+<!-- <link rel="import" href="../bower_components/iron-icons/iron-icons.html"> -->
+<!-- <link rel="import" href="../bower_components/iron-icon/iron-icon.html"> -->
+
+
+<link rel="import" href="my-icons.html">
+
+<dom-module id="my-app">
+
+    <template>
+
+        <style>
+            :host {
+                display: block;
+                --app-primary-color: #4285f4;
+                --app-secondary-color: black;
+            }
+
+            app-header {
+                background-color: var(--app-primary-color);
+                color: #fff;
+            }
+
+            app-drawer{
+                /*--app-drawer-scrim-background: #fef8e2;*/
+                --app-drawer-content-container: {
+                    background-color: #fef8e2;
+                }
+            }
+
+            app-drawer  paper-toolbar{
+                --paper-toolbar-background: #616161;
+            }
+
+            app-header-layout  paper-toolbar{
+                --paper-toolbar-background: #cfd8dd;
+                --paper-toolbar-color: #000;
+            }
+
+            #logo{
+                cursor: pointer;
+            }
+
+            .drawer-list {
+                margin: 0;
+                color: #616161;
+                --paper-menu-background-color: #fef8e2;
+            }
+            .drawer-list paper-icon-item{
+                cursor: pointer;
+                --paper-item-selected: {
+                    color: #edaa4f;
+                };
+            }
+            .drawer-list a {
+                display: block;
+                padding: 0 16px;
+                line-height: 40px;
+                text-decoration: none;
+                color: var(--app-secondary-color);
+            }
+
+            .drawer-list a.iron-selected {
+                color: black;
+                font-weight: bold;
+            }
+
+            .drawer-list a.subroute {
+                padding-left: 32px;
+            }
+
+            #logo{
+                cursor: pointer;
+            }
+        </style>
+
+        <app-location id="location" route="{{route}}"></app-location>
+        <app-route route="{{route}}" pattern="/:page" data="{{routeData}}" tail="{{subroute}}"></app-route>
+
+        <app-drawer-layout fullbleed>
+            <!-- Drawer content -->
+            <app-drawer>
+                <paper-toolbar class="tall">
+                    <img id="logo" class="middle" src="../../images/logo_lapix_desktop_horizontal.svg" alt="Logo">
+                    <div class="bottom title">Menu</div>
+                </paper-toolbar>
+                <paper-menu id="menu" selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
+                    <paper-icon-item name="home" href="/home">
+                        <iron-icon icon="extension" item-icon></iron-icon>Dashboard
+                    </paper-icon-item>
+                    <paper-icon-item name="view1" href="/view1">
+                        <iron-icon icon="extension" item-icon></iron-icon>hola
+                    </paper-icon-item>
+                    <paper-icon-item name="view2" href="/view2">
+                        <iron-icon icon="settings" item-icon></iron-icon>DevTools
+                    </paper-icon-item>
+                    <paper-icon-item name="view3" href="/view3">
+                        <iron-icon icon="settings" item-icon></iron-icon>DevTools
+                    </paper-icon-item>
+                </paper-menu>
+            </app-drawer>
+            <!-- Main content -->
+            <app-header-layout has-scrolling-region>
+                <app-header condenses reveals effects="waterfall">
+                    <paper-toolbar class="tall">
+                        <paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
+                        <div class="title">Lapix</div>
+                        <paper-icon-button icon="cached" on-tap="_winReload"></paper-icon-button>
+                        <paper-icon-button icon="bug-report" on-tap="_openDevTools"></paper-icon-button>
+                    </paper-toolbar>
+                </app-header>
+                <iron-pages role="main" selected="[[page]]" attr-for-selected="name">
+                    <my-home  name="home"></my-home>
+                    <my-view1 name="view1"></my-view1>
+                    <my-view2 name="view2"></my-view2>
+                    <my-view3 name="view3"></my-view3>
+                </iron-pages>
+            </app-header-layout>
+        </app-drawer-layout>
+    </template>
+
+    <script>
+        Polymer({
+
+            is: 'my-app',
+
+            properties: {
+
+                page: {
+                    type: String,
+                    reflectToAttribute: true,
+                    observer: '_pageChanged'
+                },
+
+            },
+
+            listeners: {
+                'menu.iron-select': '_onMenuSelect',
+                'logo.tap': '_onGoToHome'
+            },
+
+            observers: [
+                '_routePageChanged(routeData.page)'
+            ],
+
+            _routePageChanged: function(page) {
+                this.page = page || 'view1';
+            },
+
+            _pageChanged: function(page) {
+                this.importHref(this.resolveUrl('sections/my-' + page + '.html'), null, null, true);
+            },
+
+            _openDevTools: function() {
+                ipc.send('devtools');
+            },
+
+            _winReload: function() {
+                ipc.send('win-reload')
+            },
+
+            _onMenuSelect: function(e){
+                this.set('route.path', e.detail.item.getAttribute('href'))
+            },
+            _onGoToHome: function () {
+                this.set('route.path', '/home');
+            },
+            _onTap: () => console.log('tap')
+        });
+    </script>
+
+</dom-module>

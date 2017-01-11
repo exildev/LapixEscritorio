@@ -8,60 +8,88 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
 
-<link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../elements.html">
 
 <dom-module id="my-view3">
 
-  <template>
+    <template>
+        <style>
+            :host {
+                display: block;
+            }
 
-    <style>
-      :host {
-        display: block;
-        padding: 10px;
-      }
-      .card {
-        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
-        padding: 16px;
-        margin: 24px;
-        border-radius: 5px;
-        background-color: #fff;
-        color: #757575;
-      }
-      .circle {
-        display: inline-block;
-        height: 64px;
-        width: 64px;
-        border-radius: 50%;
-        background: #ddd;
-        line-height: 64px;
-        font-size: 30px;
-        color: #555;
-        text-align: center;
-      }
-      h1 {
-        font-size: 22px;
-        margin: 16px 0;
-        color: #212121;
-      }
-    </style>
+            paper-toolbar{
+                --paper-toolbar-background: #cfd8dd;
+                --paper-toolbar-color: #000;
+            }
+        </style>
+        <iron-ajax id="set" handle-as="json" content-type="application/x-www-form-urlencoded" method="post"></iron-ajax>
+        <app-header condenses reveals effects="waterfall">
+            <paper-toolbar class="tall">
+                <paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
+                <div class="title">Lapix</div>
+                <paper-icon-button icon="cached" on-tap="_winReload"></paper-icon-button>
+                <paper-icon-button icon="bug-report" on-tap="_openDevTools"></paper-icon-button>
+            </paper-toolbar>
+        </app-header>
+        <lapix-table id="dt" site="usuarios/list/profesores/" label="Profesores" property="identificacion">
+            <paper-datatable-column header="Identificación" type="String" property="identificacion" sortable></paper-datatable-column>
+            <paper-datatable-column header="Profesor" property="nombre">
+                <template>
+                    <span>{{value.first_name}}</span>
+                    <span>{{value.last_name}}</span>
+                </template>
+            </paper-datatable-column>
+            <paper-datatable-column header="Horario" property="horario" editable>
+                <template>
+                    <paper-icon-button icon="horario"></paper-icon-button>
+                </template>
+            </paper-datatable-column>
+            <paper-datatable-column header="Actividades" property="actividades" editable>
+                <template>
+                    <paper-icon-button icon="actividades"></paper-icon-button>
+                </template>
+            </paper-datatable-column>
+            <paper-datatable-column header="Estado" property="status" editable>
+                <template>
+                    <paper-toggle-button checked="{{value}}"></paper-toggle-button>
+                </template>
+            </paper-datatable-column>
+        </lapix-table>
+    </template>
 
-    <div class="card">
-      <div class="circle">3</div>
-      <h1>View Three</h1>
-      <p>Modus commodo minimum eum te, vero utinam assueverit per eu.</p>
-      <p>Ea duis bonorum nec, falli paulo aliquid ei eum.Has at minim mucius aliquam, est id tempor laoreet.Pro saepe pertinax ei, ad pri animal labores suscipiantur.</p>
-    </div>
-
-  </template>
-
-  <script>
-
-    Polymer({
-
-      is: 'my-view3'
-
-    });
-
-  </script>
+    <script>
+        Polymer({
+            is: 'my-view3',
+            behaviors: [LapixBehavior],
+            listeners: {
+                'set.response': '_onResponse',
+                'set.error': '_onError'
+            },
+            ready: function() {
+                this.$.dt._dataSource.set = (item, property, value) => {
+                    let aux = item;
+                    this.$.set.url = lapix.conf.get('host') + aux.servicios.edit;
+                    aux['first_name'] = aux.nombre.first_name;
+                    aux['last_name'] = aux.nombre.last_name;
+                    delete aux.nombre;
+                    delete aux.actividades;
+                    delete aux.servicios;
+                    delete aux.horario;
+                    this.$.set.body = aux;
+                    this.$.set.generateRequest();
+                    return new Promise((resolve, reject) => {
+                        this._onResponse = evn => {
+                            resolve(true);
+                        }
+                        this._onError = evn => {
+                            console.warn('no se pudueron guardar los cambios');
+                            resolve(false);
+                        }
+                    })
+                };
+            },
+        });
+    </script>
 
 </dom-module>

@@ -7,36 +7,23 @@ The complete set of contributors may be found at http://polymer.github.io/CONTRI
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
-<link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/app-route/app-location.html">
-<link rel="import" href="../../bower_components/app-route/app-route.html">
-<link rel="import" href="../../bower_components/app-layout/app-drawer-layout/app-drawer-layout.html">
-<link rel="import" href="../../bower_components/app-layout/app-drawer/app-drawer.html">
-<link rel="import" href="../../bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
-<link rel="import" href="../../bower_components/app-layout/app-header/app-header.html">
-<link rel="import" href="../../bower_components/app-layout/app-header-layout/app-header-layout.html">
-<link rel="import" href="../../bower_components/paper-toolbar/paper-toolbar.html">
-<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
-<link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
-<link rel="import" href="../../bower_components/iron-selector/iron-selector.html">
-<link rel="import" href="../../bower_components/paper-menu/paper-menu.html">
-<link rel="import" href="../../bower_components/paper-menu/paper-submenu.html">
-<link rel="import" href="../../bower_components/paper-item/paper-icon-item.html">
-<!-- <link rel="import" href="../bower_components/iron-icons/iron-icons.html"> -->
-<!-- <link rel="import" href="../bower_components/iron-icon/iron-icon.html"> -->
 
 
-<link rel="import" href="my-icons.html">
+<link rel="import" href="../../elements.html">
 
-<dom-module id="my-app">
+<dom-module id="lapix-app">
 
     <template>
 
         <style>
+
             :host {
                 display: block;
                 --app-primary-color: #4285f4;
                 --app-secondary-color: black;
+                --lapix-accent: #febe04;
+                --lapix-header: #cfd8dd;
+                --lapix-text: black;
             }
 
             app-header {
@@ -44,8 +31,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 color: #fff;
             }
 
+            paper-toolbar{
+                --paper-toolbar-background: #cfd8dd;
+                --paper-toolbar-color: #000;
+            }
+
             app-drawer{
-                /*--app-drawer-scrim-background: #fef8e2;*/
                 --app-drawer-content-container: {
                     background-color: #fef8e2;
                 }
@@ -55,9 +46,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 --paper-toolbar-background: #616161;
             }
 
-            app-header-layout  paper-toolbar{
-                --paper-toolbar-background: #cfd8dd;
-                --paper-toolbar-color: #000;
+            app-drawer .drawer-list paper-submenu paper-menu{
+                --paper-menu-background-color: #fef8e2;
+            }
+
+            app-drawer .drawer-list paper-submenu paper-menu paper-item {
+                --paper-item: {
+                    padding-left: 90px;
+                };
+            }
+
+            #dr:not(.narrow) ::content [drawer-toggle] {
+                display: none;
             }
 
             #logo{
@@ -69,27 +69,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 color: #616161;
                 --paper-menu-background-color: #fef8e2;
             }
-            .drawer-list paper-icon-item{
+
+            .drawer-list > paper-icon-item{
                 cursor: pointer;
                 --paper-item-selected: {
                     color: #edaa4f;
                 };
-            }
-            .drawer-list a {
-                display: block;
-                padding: 0 16px;
-                line-height: 40px;
-                text-decoration: none;
-                color: var(--app-secondary-color);
-            }
-
-            .drawer-list a.iron-selected {
-                color: black;
-                font-weight: bold;
-            }
-
-            .drawer-list a.subroute {
-                padding-left: 32px;
             }
 
             #logo{
@@ -100,11 +85,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <app-location id="location" route="{{route}}"></app-location>
         <app-route route="{{route}}" pattern="/:page" data="{{routeData}}" tail="{{subroute}}"></app-route>
 
-        <app-drawer-layout fullbleed>
+        <app-drawer-layout id="dr" fullbleed>
             <!-- Drawer content -->
-            <app-drawer>
+            <app-drawer >
                 <paper-toolbar class="tall">
-                    <img id="logo" class="middle" src="../../images/logo_lapix_desktop_horizontal.svg" alt="Logo">
+                    <img id="logo" class="middle" src="../../../images/logo_lapix_desktop_horizontal.svg" alt="Logo">
                     <div class="bottom title">Menu</div>
                 </paper-toolbar>
                 <paper-menu id="menu" selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
@@ -117,26 +102,25 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     <paper-icon-item name="view2" href="/view2">
                         <iron-icon icon="settings" item-icon></iron-icon>DevTools
                     </paper-icon-item>
-                    <paper-icon-item name="view3" href="/view3">
-                        <iron-icon icon="settings" item-icon></iron-icon>DevTools
-                    </paper-icon-item>
+                    <paper-submenu>
+                        <paper-icon-item class="menu-trigger" >
+                            <iron-icon icon="settings" item-icon></iron-icon>Registros
+                        </paper-icon-item>
+                        <paper-menu class="menu-content">
+                            <paper-item name="view3" href="/view3">Profesores</paper-item>
+                            <paper-item name="view3" href="/view3">Item 2</paper-item>
+                            <paper-item name="view3" href="/view3">Item 3</paper-item>
+                        </paper-menu>
+                    </paper-submenu>
                 </paper-menu>
             </app-drawer>
             <!-- Main content -->
             <app-header-layout has-scrolling-region>
-                <app-header condenses reveals effects="waterfall">
-                    <paper-toolbar class="tall">
-                        <paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
-                        <div class="title">Lapix</div>
-                        <paper-icon-button icon="cached" on-tap="_winReload"></paper-icon-button>
-                        <paper-icon-button icon="bug-report" on-tap="_openDevTools"></paper-icon-button>
-                    </paper-toolbar>
-                </app-header>
                 <iron-pages role="main" selected="[[page]]" attr-for-selected="name">
-                    <my-home  name="home"></my-home>
-                    <my-view1 name="view1"></my-view1>
-                    <my-view2 name="view2"></my-view2>
-                    <my-view3 name="view3"></my-view3>
+                    <my-home   name="home" bar="{{drawer}}"></my-home>
+                    <my-view1  name="view1" bar="{{drawer}}"></my-view1>
+                    <my-view2  name="view2" bar="{{drawer}}"></my-view2>
+                    <my-view3  name="view3" bar="{{drawer}}"></my-view3>
                 </iron-pages>
             </app-header-layout>
         </app-drawer-layout>
@@ -145,16 +129,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <script>
         Polymer({
 
-            is: 'my-app',
+            is: 'lapix-app',
+
+            behaviors: [LapixBehavior],
 
             properties: {
-
                 page: {
                     type: String,
                     reflectToAttribute: true,
                     observer: '_pageChanged'
-                },
-
+                }
             },
 
             listeners: {
@@ -166,29 +150,32 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 '_routePageChanged(routeData.page)'
             ],
 
+            get drawer(){
+                return this.$.dr.drawer;
+            },
+
             _routePageChanged: function(page) {
                 this.page = page || 'view1';
             },
 
             _pageChanged: function(page) {
-                this.importHref(this.resolveUrl('sections/my-' + page + '.html'), null, null, true);
-            },
-
-            _openDevTools: function() {
-                ipc.send('devtools');
-            },
-
-            _winReload: function() {
-                ipc.send('win-reload')
+                this.importHref(this.resolveUrl('../sections/my-' + page + '.html'), null, null, true);
             },
 
             _onMenuSelect: function(e){
+                let list = this.$.menu.querySelectorAll('paper-submenu > paper-menu');
+                list.forEach(item => {
+                    if(item.selected !== undefined){
+                        if(this.$.menu.selected && item.selected !== -1){
+                            item.select(-1);
+                        }
+                    }
+                });
                 this.set('route.path', e.detail.item.getAttribute('href'))
             },
             _onGoToHome: function () {
                 this.set('route.path', '/home');
-            },
-            _onTap: () => console.log('tap')
+            }
         });
     </script>
 

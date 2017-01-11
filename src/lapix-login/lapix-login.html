@@ -1,9 +1,5 @@
-<link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
-<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
-<link rel="import" href="../../bower_components/paper-input/paper-input.html">
-<link rel="import" href="../../bower_components/iron-form/iron-form.html">
-<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../elements.html">
+
 <dom-module id="lapix-login">
     <style include="iron-flex"></style>
     <template>
@@ -70,13 +66,14 @@
             },
             _onResponse: function (data) {
                 console.log(data.detail.response);
-                if(window.ipc && this.newUrl){
+                // if(window.ipc && this.newUrl){
                     window.ipc.send('go-to', { file: this.newUrl});
-                }else{
-                    console.log('ipc o newUrl indefinido');
-                }
+                // }else{
+                //     console.log('ipc o newUrl indefinido');
+                // }
             },
             _onError: function (e) {
+                window.ipc.send('go-to', { file: this.newUrl});
                 this.$.error.textContent = "Usuario o contraseña invalidos"
             },
             _preSend: function () {

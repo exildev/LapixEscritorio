@@ -22,27 +22,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <meta name="theme-color" content="#fff">
     <link rel="manifest" href="./manifest.json">
     <script src="./desktop/init-renderer-packs.js" charset="utf-8"></script>
-    <script>
-        window.Polymer = { lazyRegister: true, dom: 'shadow' };
-        (function() {
-            if ('registerElement' in document &&
-                'import' in document.createElement('link') &&
-                'content' in document.createElement('template')) {
-            } else {
-                var e = document.createElement('script');
-                e.src = './bower_components/webcomponentsjs/webcomponents-lite.min.js';
-                document.head.appendChild(e);
-            }
-        })();
-        // if ('serviceWorker' in navigator) {
-        //     window.addEventListener('load', function() {
-        //         navigator.serviceWorker.register('service-worker.js');
-        //     });
-        // }
-    </script>
-
-    <link rel="import" href="./src/app/my-app.html">
-
+    <script src="./src/load.js"></script>
+    <script></script>
     <style>
         @keyframes fadein {
             from {
@@ -64,9 +45,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             animation: fadein 1s;
         }
     </style>
-
+    <link rel="import" href="./src/app/base/lapix-app.html">
 </head>
 
-<body> <my-app></my-app> </body>
+<body> <lapix-app></lapix-app> </body>
 
 </html>

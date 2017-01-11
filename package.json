@@ -3,7 +3,9 @@
   "version": "0.0.1",
   "description": "Edication Plataform",
   "main": "./desktop/main.js",
-  "dependencies": {},
+  "dependencies": {
+    "electron-config": "^0.2.1"
+  },
   "devDependencies": {
     "devtron": "^1.4.0",
     "electron": "^1.4.7"

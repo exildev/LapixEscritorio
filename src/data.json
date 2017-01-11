@@ -1,0 +1,145 @@
+[
+    {
+        "identificacion": "1",
+        "profesor": {
+            "pk": "1",
+            "name": "Nombre Apellido"
+        },
+        "horario": {
+            "edit": "1",
+            "view": "1"
+        },
+        "activides": "1",
+        "estado": false
+    },
+    {
+        "identificacion": "2",
+        "profesor": {
+            "pk": "1",
+            "name": "Nombre Apellido"
+        },
+        "horario": {
+            "edit": "1",
+            "view": "1"
+        },
+        "activides": "1",
+        "estado": false
+    },
+    {
+        "identificacion": "3",
+        "profesor": {
+            "pk": "1",
+            "name": "Nombre Apellido"
+        },
+        "horario": {
+            "edit": "1",
+            "view": "1"
+        },
+        "activides": "1",
+        "estado": true
+    },
+    {
+        "identificacion": "4",
+        "profesor": {
+            "pk": "1",
+            "name": "Nombre Apellido"
+        },
+        "horario": {
+            "edit": "1",
+            "view": "1"
+        },
+        "activides": "1",
+        "estado": true
+    },
+    {
+        "identificacion": "5",
+        "profesor": {
+            "pk": "1",
+            "name": "Nombre Apellido"
+        },
+        "horario": {
+            "edit": "1",
+            "view": "1"
+        },
+        "activides": "1",
+        "estado": true
+    },
+    {
+        "identificacion": "6",
+        "profesor": {
+            "pk": "1",
+            "name": "Nombre Apellido"
+        },
+        "horario": {
+            "edit": "1",
+            "view": "1"
+        },
+        "activides": "1",
+        "estado": false
+    },
+    {
+        "identificacion": "7",
+        "profesor": {
+            "pk": "1",
+            "name": "Nombre Apellido"
+        },
+        "horario": {
+            "edit": "1",
+            "view": "1"
+        },
+        "activides": "1",
+        "estado": true
+    },
+    {
+        "identificacion": "8",
+        "profesor": {
+            "pk": "1",
+            "name": "Nombre Apellido"
+        },
+        "horario": {
+            "edit": "1",
+            "view": "1"
+        },
+        "activides": "1",
+        "estado": true
+    },
+    {
+        "identificacion": "9",
+        "profesor": {
+            "pk": "1",
+            "name": "Nombre Apellido"
+        },
+        "horario": {
+            "edit": "1",
+            "view": "1"
+        },
+        "activides": "1",
+        "estado": false
+    },
+    {
+        "identificacion": "10",
+        "profesor": {
+            "pk": "1",
+            "name": "Nombre Apellido"
+        },
+        "horario": {
+            "edit": "1",
+            "view": "1"
+        },
+        "activides": "1",
+        "estado": true
+    },
+    {
+        "identificacion": "11",
+        "profesor": {
+            "pk": "1",
+            "name": "Nombre Apellido"
+        },
+        "horario": {
+            "edit": "1",
+            "view": "1"
+        },
+        "activides": "1",
+        "estado": true
+    }
+]
